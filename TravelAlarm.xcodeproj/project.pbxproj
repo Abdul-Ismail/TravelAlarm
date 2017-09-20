@@ -8,20 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		7BC7AD871F72803A00397EEF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC7AD861F72803A00397EEF /* AppDelegate.swift */; };
-		7BC7AD891F72803A00397EEF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC7AD881F72803A00397EEF /* ViewController.swift */; };
 		7BC7AD8C1F72803A00397EEF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BC7AD8A1F72803A00397EEF /* Main.storyboard */; };
 		7BC7AD8E1F72803A00397EEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7BC7AD8D1F72803A00397EEF /* Assets.xcassets */; };
 		7BC7AD911F72803B00397EEF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BC7AD8F1F72803B00397EEF /* LaunchScreen.storyboard */; };
+		7BC7AD991F72958200397EEF /* PinnedLocationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC7AD981F72958200397EEF /* PinnedLocationsTableViewController.swift */; };
+		7BC7AD9B1F72959900397EEF /* PinnedLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC7AD9A1F72959900397EEF /* PinnedLocationTableViewCell.swift */; };
+		7BC7AD9D1F7295DB00397EEF /* MapSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC7AD9C1F7295DB00397EEF /* MapSearchViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7BC7AD831F72803A00397EEF /* TravelAlarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelAlarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BC7AD861F72803A00397EEF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7BC7AD881F72803A00397EEF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7BC7AD8B1F72803A00397EEF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7BC7AD8D1F72803A00397EEF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7BC7AD901F72803B00397EEF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7BC7AD921F72803B00397EEF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7BC7AD981F72958200397EEF /* PinnedLocationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinnedLocationsTableViewController.swift; sourceTree = "<group>"; };
+		7BC7AD9A1F72959900397EEF /* PinnedLocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinnedLocationTableViewCell.swift; sourceTree = "<group>"; };
+		7BC7AD9C1F7295DB00397EEF /* MapSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapSearchViewController.swift; path = ../MapSearchViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,8 +59,10 @@
 			isa = PBXGroup;
 			children = (
 				7BC7AD861F72803A00397EEF /* AppDelegate.swift */,
-				7BC7AD881F72803A00397EEF /* ViewController.swift */,
 				7BC7AD8A1F72803A00397EEF /* Main.storyboard */,
+				7BC7AD9A1F72959900397EEF /* PinnedLocationTableViewCell.swift */,
+				7BC7AD9C1F7295DB00397EEF /* MapSearchViewController.swift */,
+				7BC7AD981F72958200397EEF /* PinnedLocationsTableViewController.swift */,
 				7BC7AD8D1F72803A00397EEF /* Assets.xcassets */,
 				7BC7AD8F1F72803B00397EEF /* LaunchScreen.storyboard */,
 				7BC7AD921F72803B00397EEF /* Info.plist */,
@@ -137,8 +143,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BC7AD891F72803A00397EEF /* ViewController.swift in Sources */,
+				7BC7AD991F72958200397EEF /* PinnedLocationsTableViewController.swift in Sources */,
+				7BC7AD9B1F72959900397EEF /* PinnedLocationTableViewCell.swift in Sources */,
 				7BC7AD871F72803A00397EEF /* AppDelegate.swift in Sources */,
+				7BC7AD9D1F7295DB00397EEF /* MapSearchViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +310,7 @@
 				7BC7AD971F72803B00397EEF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

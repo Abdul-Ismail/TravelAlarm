@@ -9,10 +9,25 @@
 import UIKit
 import MapKit
 
+struct Annotations {
+    var coords: CLLocationCoordinate2D
+    var shortname: String
+}
+
+var annotations: [Annotations] = []
+
 class MapSearchViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var getCurrentLocation: UIButton!
     
     @IBAction func getCurrentLocationAction(_ sender: Any) {
+        
+        //displaying all stored annotations as pinned annotations
+        for annotation in annotations {
+        let pinnedAnnotation = MKPointAnnotation()
+        pinnedAnnotation.coordinate = annotation.coords
+        pinnedAnnotation.title = annotation.shortname
+        mapView.addAnnotation(pinnedAnnotation)
+        }
     }
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var mapSearch: UISearchBar!
@@ -123,15 +138,9 @@ class MapSearchViewController: UIViewController, UISearchBarDelegate {
                 let latitude = result?.boundingRegion.center.latitude
                 let longitude = result?.boundingRegion.center.longitude
                 
-                //Create annotation
-                let annotation = MKPointAnnotation()
-                annotation.title = searchBar.text
-                annotation.coordinate = CLLocationCoordinate2DMake(latitude!, longitude!)
-                self.mapView.addAnnotation(annotation) //add to map
-                
                 //zoom in at location
                 let coordinate = CLLocationCoordinate2DMake(latitude!, longitude!)
-                let span = MKCoordinateSpanMake(0.1, 0.1) //how zoomed in
+                let span = MKCoordinateSpanMake(0.02, 0.02) //how zoomed in
                 let region = MKCoordinateRegionMake(coordinate, span)
                 self.mapView.setRegion(region, animated: true)
             }
@@ -143,7 +152,6 @@ class MapSearchViewController: UIViewController, UISearchBarDelegate {
         
         //only update cords if user is on map view
         if popUpEnabled == false {
-            print("FF")
         if let touch = touches.first  {
              cordTouchedAt = touch.location(in: view)
             }
@@ -152,6 +160,10 @@ class MapSearchViewController: UIViewController, UISearchBarDelegate {
     
     
     func addAnnotationOnLongPres() {
+        
+        //reset the label value so if user doesnt fill it in it wont be using previosu stored value
+        locationName.text = ""
+        
         //if statement to avoid function being called mutiple times if user holds for longer period of time
         if popUpEnabled == false {
             mapView.isUserInteractionEnabled = false
@@ -164,14 +176,23 @@ class MapSearchViewController: UIViewController, UISearchBarDelegate {
     @IBAction func pinLocationAction(_ sender: Any) {
         
         let newCoordinate = self.mapView.convert(cordTouchedAt, toCoordinateFrom:self.mapView)
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = newCoordinate
-        mapView.addAnnotation(annotation)
+        
+        //if user picked a location store that else reverse gecode and get address
+        let customName: String
+        if locationName.text != "" {
+            customName = locationName.text!
+        }else {
+            //store geocode
+            customName = "address picked"
+        }
+        
+        annotations.append(Annotations(coords: newCoordinate, shortname: customName))
         
         animateOut()
         mapView.isUserInteractionEnabled = true
         mapSearch.isUserInteractionEnabled = true
         popUpEnabled = false
+        
         
     }
 

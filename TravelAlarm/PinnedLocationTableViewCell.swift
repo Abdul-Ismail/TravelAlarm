@@ -10,11 +10,13 @@ import UIKit
 
 class PinnedLocationTableViewCell: UITableViewCell {
     @IBOutlet weak var pinImage: UIImageView!
-    
     @IBOutlet weak var pinLocation: UILabel!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        pinImage.image = UIImage(named: "MapPin")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

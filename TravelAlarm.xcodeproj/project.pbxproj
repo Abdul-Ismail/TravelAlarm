@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B6C388C1F72DFF5000DD0CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B6C388B1F72DFF5000DD0CF /* CoreLocation.framework */; };
 		7BC7AD871F72803A00397EEF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC7AD861F72803A00397EEF /* AppDelegate.swift */; };
 		7BC7AD8C1F72803A00397EEF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7BC7AD8A1F72803A00397EEF /* Main.storyboard */; };
 		7BC7AD8E1F72803A00397EEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7BC7AD8D1F72803A00397EEF /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7B6C388B1F72DFF5000DD0CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7BC7AD831F72803A00397EEF /* TravelAlarm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelAlarm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BC7AD861F72803A00397EEF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7BC7AD8B1F72803A00397EEF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -33,17 +35,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B6C388C1F72DFF5000DD0CF /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7B6C388A1F72DFF5000DD0CF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7B6C388B1F72DFF5000DD0CF /* CoreLocation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7BC7AD7A1F72803A00397EEF = {
 			isa = PBXGroup;
 			children = (
 				7BC7AD851F72803A00397EEF /* TravelAlarm */,
 				7BC7AD841F72803A00397EEF /* Products */,
+				7B6C388A1F72DFF5000DD0CF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

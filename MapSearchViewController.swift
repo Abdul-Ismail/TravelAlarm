@@ -16,19 +16,11 @@ struct Annotations {
 
 var annotations: [Annotations] = []
 
-class MapSearchViewController: UIViewController, UISearchBarDelegate {
+class MapSearchViewController: UIViewController, UISearchBarDelegate, CLLocationManagerDelegate {
     @IBOutlet weak var getCurrentLocation: UIButton!
     
-    @IBAction func getCurrentLocationAction(_ sender: Any) {
-        
-        //displaying all stored annotations as pinned annotations
-        for annotation in annotations {
-        let pinnedAnnotation = MKPointAnnotation()
-        pinnedAnnotation.coordinate = annotation.coords
-        pinnedAnnotation.title = annotation.shortname
-        mapView.addAnnotation(pinnedAnnotation)
-        }
-    }
+
+    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var mapSearch: UISearchBar!
     
@@ -43,14 +35,16 @@ class MapSearchViewController: UIViewController, UISearchBarDelegate {
     
     var cordTouchedAt: CGPoint!
     
+    let manager = CLLocationManager()
+    var currentUserLocation: CLLocation!
     
+    var spanToUserLocationOnce = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         mapSearch.delegate = self
         
-
         //hide affect to disenable blur and allow control on upmost view
         visualEffectView.isHidden = true
         
@@ -59,9 +53,35 @@ class MapSearchViewController: UIViewController, UISearchBarDelegate {
         
         //longpress
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotationOnLongPres))
-        longPressGesture.minimumPressDuration = 1.0
+        longPressGesture.minimumPressDuration = 0.6
         self.mapView.addGestureRecognizer(longPressGesture)
+
         
+        //user location
+        if CLLocationManager.locationServicesEnabled() {
+        manager.requestWhenInUseAuthorization()
+        manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyBest //best accuracy that we can get
+        manager.startUpdatingLocation() //update location every time it changes
+        self.mapView.showsUserLocation = true
+        }else {
+            print("error")
+        }
+        
+    }
+    
+    
+    
+    //function thats called everytime the users position changes
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        //extract user location when this function is called
+         currentUserLocation = locations[0] //locations will store all location, 0 will store the most recent
+        
+        if spanToUserLocationOnce == false {
+            spanToUserLocationOnce = true
+            spanToLocation(latitude: currentUserLocation.coordinate.latitude, longitude: currentUserLocation.coordinate.longitude)
+        }
+
     }
     
     //animate the pop up view
@@ -138,11 +158,7 @@ class MapSearchViewController: UIViewController, UISearchBarDelegate {
                 let latitude = result?.boundingRegion.center.latitude
                 let longitude = result?.boundingRegion.center.longitude
                 
-                //zoom in at location
-                let coordinate = CLLocationCoordinate2DMake(latitude!, longitude!)
-                let span = MKCoordinateSpanMake(0.02, 0.02) //how zoomed in
-                let region = MKCoordinateRegionMake(coordinate, span)
-                self.mapView.setRegion(region, animated: true)
+                self.spanToLocation(latitude: latitude!, longitude: longitude!)
             }
         }
         
@@ -186,6 +202,7 @@ class MapSearchViewController: UIViewController, UISearchBarDelegate {
             customName = "address picked"
         }
         
+        
         annotations.append(Annotations(coords: newCoordinate, shortname: customName))
         
         animateOut()
@@ -193,7 +210,31 @@ class MapSearchViewController: UIViewController, UISearchBarDelegate {
         mapSearch.isUserInteractionEnabled = true
         popUpEnabled = false
         
+        //pin annotation
+        let pinnedAnnotation = MKPointAnnotation()
+        pinnedAnnotation.coordinate = newCoordinate
+        pinnedAnnotation.title = customName
+        mapView.addAnnotation(pinnedAnnotation)
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        mapView.removeAnnotations(mapView.annotations)
+
+    }
+    
+    func spanToLocation(latitude: Double, longitude: Double) {
+        let coordinate = CLLocationCoordinate2DMake(latitude, longitude)
+        let span = MKCoordinateSpanMake(0.02, 0.02) //how zoomed in
+        let region = MKCoordinateRegionMake(coordinate, span)
+        self.mapView.setRegion(region, animated: true)
+    }
+    
+
+    
+    @IBAction func getCurrentLocationAction(_ sender: Any) {
+        
+
     }
 
 }

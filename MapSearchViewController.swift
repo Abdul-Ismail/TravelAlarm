@@ -17,6 +17,16 @@ class MapSearchViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var mapSearch: UISearchBar!
     
+    @IBOutlet weak var visualEffectView: UIVisualEffectView!
+    var  effect: UIVisualEffect!
+  
+    //popUpview
+    @IBOutlet var pinLocationPopUpView: UIView!
+    @IBOutlet weak var pinLocation: UIButton!
+    @IBOutlet weak var locationName: UITextField!
+    var popUpEnabled = false
+    
+    var cordTouchedAt: CGPoint!
     
     
     
@@ -26,7 +36,52 @@ class MapSearchViewController: UIViewController, UISearchBarDelegate {
         mapSearch.delegate = self
         
 
-        // Do any additional setup after loading the view.
+        //hide affect to disenable blur and allow control on upmost view
+        visualEffectView.isHidden = true
+        
+        //corener radius
+        pinLocationPopUpView.layer.cornerRadius = 5
+        
+        //longpress
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotationOnLongPres))
+        longPressGesture.minimumPressDuration = 1.0
+        self.mapView.addGestureRecognizer(longPressGesture)
+        
+    }
+    
+    //animate the pop up view
+    func animateIn() {
+        self.view.addSubview(pinLocationPopUpView)
+        pinLocationPopUpView.center = self.view.center
+        
+        //self.view.isUserInteractionEnabled = false
+        //self.pinLocationPopUpView.isUserInteractionEnabled = true
+        
+        
+        //make pop up bigger before we can scale it down and alpha 0
+        pinLocationPopUpView.transform = CGAffineTransform.init(scaleX: 1.4, y: 1.4)
+        pinLocationPopUpView.alpha = 0
+        
+        UIView.animate(withDuration: 0.5) {
+            self.visualEffectView.isHidden = false
+            self.pinLocationPopUpView.alpha = 1
+            self.pinLocationPopUpView.transform = CGAffineTransform.identity //original identity
+            
+        }
+        
+    }
+    
+    //animateOut
+    func animateOut() {
+        UIView.animate(withDuration: 0.4
+            , animations: {
+                self.pinLocationPopUpView.transform = CGAffineTransform.init(scaleX: 1.4, y: 1.4)
+                self.pinLocationPopUpView.alpha = 0
+        }) { (success: Bool) in
+            //perform this once animation is done
+            self.pinLocationPopUpView.removeFromSuperview()
+            self.visualEffectView.isHidden = true
+        }
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -79,14 +134,45 @@ class MapSearchViewController: UIViewController, UISearchBarDelegate {
                 let span = MKCoordinateSpanMake(0.1, 0.1) //how zoomed in
                 let region = MKCoordinateRegionMake(coordinate, span)
                 self.mapView.setRegion(region, animated: true)
-                
-                
-                
             }
         }
         
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        //only update cords if user is on map view
+        if popUpEnabled == false {
+            print("FF")
+        if let touch = touches.first  {
+             cordTouchedAt = touch.location(in: view)
+            }
+        }
+    }
+    
+    
+    func addAnnotationOnLongPres() {
+        //if statement to avoid function being called mutiple times if user holds for longer period of time
+        if popUpEnabled == false {
+            mapView.isUserInteractionEnabled = false
+            mapSearch.isUserInteractionEnabled = false
+            animateIn()
+            popUpEnabled = true
+        }
+    }
+    
+    @IBAction func pinLocationAction(_ sender: Any) {
+        
+        let newCoordinate = self.mapView.convert(cordTouchedAt, toCoordinateFrom:self.mapView)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = newCoordinate
+        mapView.addAnnotation(annotation)
+        
+        animateOut()
+        mapView.isUserInteractionEnabled = true
+        mapSearch.isUserInteractionEnabled = true
+        popUpEnabled = false
+        
+    }
 
 }
-
-

@@ -42,19 +42,61 @@
                                     <string>Title</string>
                                 </scopeButtonTitles>
                             </searchBar>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aCw-aW-ZLz">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="HR7-k0-0In">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="search" id="a0d-1U-4Mx"/>
                     <connections>
                         <outlet property="getCurrentLocation" destination="Al3-EB-cAR" id="k6J-wx-BF2"/>
+                        <outlet property="locationName" destination="XRJ-Vr-0PJ" id="Kmf-Db-Qw6"/>
                         <outlet property="mapSearch" destination="Jxs-Tn-RGp" id="enU-NN-MPZ"/>
                         <outlet property="mapView" destination="kDN-KT-cz2" id="NYX-sC-YHj"/>
+                        <outlet property="pinLocation" destination="1yF-3N-j7p" id="5SO-gx-7MT"/>
+                        <outlet property="pinLocationPopUpView" destination="8oQ-Na-ajE" id="L6y-IU-age"/>
+                        <outlet property="visualEffectView" destination="aCw-aW-ZLz" id="jfU-0z-Eeb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N2X-KL-zhE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="8oQ-Na-ajE">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="college stop" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XRJ-Vr-0PJ">
+                            <rect key="frame" x="22" y="49" width="184" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="67N-Gj-gC7">
+                            <rect key="frame" x="99" y="15" width="42" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1yF-3N-j7p">
+                            <rect key="frame" x="97" y="98" width="46" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Button"/>
+                            <connections>
+                                <action selector="pinLocationAction:" destination="tju-pt-ZKJ" eventType="touchUpInside" id="UC2-Bw-RTI"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="0.7702189700704225" colorSpace="calibratedWhite"/>
+                </view>
             </objects>
-            <point key="canvasLocation" x="270" y="-868"/>
+            <point key="canvasLocation" x="269.60000000000002" y="-868.51574212893559"/>
         </scene>
         <!--Pinned Locations Table View Controller-->
         <scene sceneID="mqf-Jv-Dvo">

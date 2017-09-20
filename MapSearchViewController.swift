@@ -68,6 +68,8 @@ class MapSearchViewController: UIViewController, UISearchBarDelegate, CLLocation
             print("error")
         }
         
+        NotificationCenter.default.addObserver(self, selector: #selector(deleteAnnotation), name: NSNotification.Name.init("deletePin"), object: nil)
+        
     }
     
     
@@ -216,12 +218,11 @@ class MapSearchViewController: UIViewController, UISearchBarDelegate, CLLocation
         pinnedAnnotation.title = customName
         mapView.addAnnotation(pinnedAnnotation)
         
+        //inform pinlocation tab by notification to relaod table view
+        NotificationCenter.default.post(name: NSNotification.Name.init("pinAdded"), object: nil)
+        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        mapView.removeAnnotations(mapView.annotations)
-
-    }
     
     func spanToLocation(latitude: Double, longitude: Double) {
         let coordinate = CLLocationCoordinate2DMake(latitude, longitude)
@@ -235,6 +236,26 @@ class MapSearchViewController: UIViewController, UISearchBarDelegate, CLLocation
     @IBAction func getCurrentLocationAction(_ sender: Any) {
         
 
+    }
+    
+    //this function gets called by the deletePin notification
+     @objc func deleteAnnotation(notification: Notification) {
+        guard var locationOfAnnotationToDelete = notification.object as? String else {
+            return print("Did not recieve a object in notification")
+        }
+        
+        //remove all annotations
+        mapView.removeAnnotations(mapView.annotations)
+        
+        //put pin again from the same array, this time one field in the array was deleted so annotations is updated
+        for annotation in annotations {
+            let pinnedAnnotation = MKPointAnnotation()
+            pinnedAnnotation.coordinate = annotation.coords
+            pinnedAnnotation.title = annotation.shortname
+            mapView.addAnnotation(pinnedAnnotation)
+        }
+
+        print(locationOfAnnotationToDelete)
     }
 
 }

@@ -12,7 +12,15 @@ class PinnedLocationsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //notificaion that pin was added from MapSearchView
+        NotificationCenter.default.addObserver(self, selector: #selector(add), name: NSNotification.Name.init("pinAdded"), object: nil)
 
+    }
+    
+    //notification calls this funcuton
+    @objc func add(notification: Notification) {
+        self.tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,7 +53,14 @@ class PinnedLocationsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCellEditingStyle.delete {
-            annotations.remove(at: indexPath.row)
+
+        //removing before we send the notification
+        annotations.remove(at: indexPath.row)
+            
+         //send notification that a pin has been deleted
+         NotificationCenter.default.post(name: NSNotification.Name.init("deletePin"), object: "annotations[indexPath.row].coords")
+            
+            
             self.tableView.reloadData()
         }
     }

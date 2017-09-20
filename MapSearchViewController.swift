@@ -234,7 +234,7 @@ class MapSearchViewController: UIViewController, UISearchBarDelegate, CLLocation
 
     
     @IBAction func getCurrentLocationAction(_ sender: Any) {
-        
+        spanToLocation(latitude: currentUserLocation.coordinate.latitude, longitude: currentUserLocation.coordinate.longitude)
 
     }
     

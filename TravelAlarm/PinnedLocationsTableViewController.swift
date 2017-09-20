@@ -64,7 +64,17 @@ class PinnedLocationsTableViewController: UITableViewController {
             self.tableView.reloadData()
         }
     }
- 
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //savedStopClickedOn
+        //performSegue(withIdentifier: "savedStopClickedOn", sender: self)
+    }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        var DueTimeTableViewController = segue.destination as! DueTimeTableViewController
+//        DueTimeTableViewController.checkBusStop = pressedBusStop
+//    }
+//
 
 
 

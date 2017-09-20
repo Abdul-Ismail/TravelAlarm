@@ -15,6 +15,7 @@
 		7BC7AD991F72958200397EEF /* PinnedLocationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC7AD981F72958200397EEF /* PinnedLocationsTableViewController.swift */; };
 		7BC7AD9B1F72959900397EEF /* PinnedLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC7AD9A1F72959900397EEF /* PinnedLocationTableViewCell.swift */; };
 		7BC7AD9D1F7295DB00397EEF /* MapSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC7AD9C1F7295DB00397EEF /* MapSearchViewController.swift */; };
+		7BFB8B6B1F731CAD00E0713C /* SetAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BFB8B6A1F731CAD00E0713C /* SetAlarmViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		7BC7AD981F72958200397EEF /* PinnedLocationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinnedLocationsTableViewController.swift; sourceTree = "<group>"; };
 		7BC7AD9A1F72959900397EEF /* PinnedLocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinnedLocationTableViewCell.swift; sourceTree = "<group>"; };
 		7BC7AD9C1F7295DB00397EEF /* MapSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapSearchViewController.swift; path = ../MapSearchViewController.swift; sourceTree = "<group>"; };
+		7BFB8B6A1F731CAD00E0713C /* SetAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetAlarmViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				7BC7AD9A1F72959900397EEF /* PinnedLocationTableViewCell.swift */,
 				7BC7AD9C1F7295DB00397EEF /* MapSearchViewController.swift */,
 				7BC7AD981F72958200397EEF /* PinnedLocationsTableViewController.swift */,
+				7BFB8B6A1F731CAD00E0713C /* SetAlarmViewController.swift */,
 				7BC7AD8D1F72803A00397EEF /* Assets.xcassets */,
 				7BC7AD8F1F72803B00397EEF /* LaunchScreen.storyboard */,
 				7BC7AD921F72803B00397EEF /* Info.plist */,
@@ -156,6 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BC7AD991F72958200397EEF /* PinnedLocationsTableViewController.swift in Sources */,
+				7BFB8B6B1F731CAD00E0713C /* SetAlarmViewController.swift in Sources */,
 				7BC7AD9B1F72959900397EEF /* PinnedLocationTableViewCell.swift in Sources */,
 				7BC7AD871F72803A00397EEF /* AppDelegate.swift in Sources */,
 				7BC7AD9D1F7295DB00397EEF /* MapSearchViewController.swift in Sources */,

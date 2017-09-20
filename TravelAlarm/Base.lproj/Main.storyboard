@@ -33,17 +33,28 @@
                                     <action selector="getCurrentLocationAction:" destination="tju-pt-ZKJ" eventType="touchUpInside" id="L07-bD-pcw"/>
                                 </connections>
                             </button>
+                            <searchBar contentMode="redraw" fixedFrame="YES" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jxs-Tn-RGp">
+                                <rect key="frame" x="0.0" y="10" width="375" height="56"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="search" id="a0d-1U-4Mx"/>
                     <connections>
                         <outlet property="getCurrentLocation" destination="Al3-EB-cAR" id="k6J-wx-BF2"/>
+                        <outlet property="mapSearch" destination="Jxs-Tn-RGp" id="enU-NN-MPZ"/>
+                        <outlet property="mapView" destination="kDN-KT-cz2" id="NYX-sC-YHj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N2X-KL-zhE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="320.80000000000001" y="-335.08245877061472"/>
+            <point key="canvasLocation" x="270" y="-868"/>
         </scene>
         <!--Pinned Locations Table View Controller-->
         <scene sceneID="mqf-Jv-Dvo">
@@ -89,7 +100,52 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hnh-Kl-4Kh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="320.80000000000001" y="385.45727136431788"/>
+            <point key="canvasLocation" x="270" y="729"/>
+        </scene>
+        <!--Current Alarm-->
+        <scene sceneID="sZZ-wB-4Ce">
+            <objects>
+                <viewController id="fin-hP-2Du" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="R7M-kR-uuQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wqv-7k-vTk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="KGE-kz-bIH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="Xax-l3-Thn">
+                                <rect key="frame" x="0.0" y="0.0" width="410" height="618"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fb8-35-Zd7">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="uD3-EG-5Zw">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wt3-RW-G5R">
+                                            <rect key="frame" x="116" y="540" width="153" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" type="system" weight="black" pointSize="15"/>
+                                            <state key="normal" title="Set Alarm">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Current Alarm" id="uzP-VQ-3t3"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P0d-60-BKv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="269.60000000000002" y="-99.400299850074973"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="L5B-kf-Hu6">
@@ -102,12 +158,16 @@
                     </tabBar>
                     <connections>
                         <segue destination="tju-pt-ZKJ" kind="relationship" relationship="viewControllers" id="uoK-4X-gkj"/>
-                        <segue destination="G5I-bi-IWD" kind="relationship" relationship="viewControllers" id="AL9-Rf-BAd"/>
+                        <segue destination="fin-hP-2Du" kind="relationship" relationship="viewControllers" id="cNi-te-rC6"/>
+                        <segue destination="G5I-bi-IWD" kind="relationship" relationship="viewControllers" id="KFA-fa-zSH"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QKM-eG-Sis" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-633" y="-7"/>
+            <point key="canvasLocation" x="-1764" y="-74"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="background" width="1920" height="1080"/>
+    </resources>
 </document>

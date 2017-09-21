@@ -9,6 +9,8 @@
 import UIKit
 
 class PinnedLocationsTableViewController: UITableViewController {
+    
+    //var pickedLocation: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,8 +69,25 @@ class PinnedLocationsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //savedStopClickedOn
-        //performSegue(withIdentifier: "savedStopClickedOn", sender: self)
+        pickedLocation = indexPath.row
+        tabBarController?.selectedIndex = 1
     }
+        
+        
+    }
+    
+    //This function is run before savedStopCLickedOn Segue
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        var SetAlarmViewController = segue.destination as! SetAlarmViewController
+//        SetAlarmViewController.pickedLocation = pickedLocation
+//    }
+
+    
+    //this function is run before we perform the segue
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        var DueTimeTableViewController = segue.destination as! DueTimeTableViewController
+//        DueTimeTableViewController.checkBusStop = pressedBusStop
+//    }
     
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        var DueTimeTableViewController = segue.destination as! DueTimeTableViewController
@@ -78,4 +97,4 @@ class PinnedLocationsTableViewController: UITableViewController {
 
 
 
-}
+

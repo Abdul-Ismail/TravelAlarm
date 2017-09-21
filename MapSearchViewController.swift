@@ -15,6 +15,7 @@ struct Annotations {
 }
 
 var annotations: [Annotations] = []
+var currentUserLocation: CLLocation!
 
 class MapSearchViewController: UIViewController, UISearchBarDelegate, CLLocationManagerDelegate {
     @IBOutlet weak var getCurrentLocation: UIButton!
@@ -36,7 +37,6 @@ class MapSearchViewController: UIViewController, UISearchBarDelegate, CLLocation
     var cordTouchedAt: CGPoint!
     
     let manager = CLLocationManager()
-    var currentUserLocation: CLLocation!
     
     var spanToUserLocationOnce = false
     
@@ -217,6 +217,21 @@ class MapSearchViewController: UIViewController, UISearchBarDelegate, CLLocation
         pinnedAnnotation.coordinate = newCoordinate
         pinnedAnnotation.title = customName
         mapView.addAnnotation(pinnedAnnotation)
+        
+        // Create request
+        let request = MKDirectionsRequest()
+        let sourceItem = MKMapItem(placemark: MKPlacemark(coordinate: mapView.userLocation.coordinate, addressDictionary: nil))
+        let destinationItem = MKMapItem(placemark: MKPlacemark(coordinate: newCoordinate, addressDictionary: nil))
+        request.transportType = MKDirectionsTransportType.automobile
+        request.requestsAlternateRoutes = false
+        let directions = MKDirections(request: request)
+        directions.calculate { response, error in
+            if let route = response?.routes.first {
+                print("Distance: \(route.distance), ETA: \(route.expectedTravelTime)")
+            } else {
+                print(error?.localizedDescription)
+            }
+        }
         
         //inform pinlocation tab by notification to relaod table view
         NotificationCenter.default.post(name: NSNotification.Name.init("pinAdded"), object: nil)

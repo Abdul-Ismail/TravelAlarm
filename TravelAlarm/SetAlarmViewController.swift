@@ -8,8 +8,11 @@
 
 import UIKit
 import MapKit
+import AudioToolbox
 
 var pickedLocation: Int? = nil
+var alarmSet = false
+
 
 class SetAlarmViewController: UIViewController {
 
@@ -26,9 +29,11 @@ class SetAlarmViewController: UIViewController {
     @IBOutlet weak var messageToSetRadius: UILabel!
     @IBOutlet weak var distanceToLocation: UILabel!
     
-    @IBAction func cancelAction(_ sender: Any) {
-    }
     @IBOutlet weak var cancel: UIButton!
+    
+    //stores how far before the stop the user would like to be reminded
+    var remindMeBefore = 5000 //random value
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,6 +43,9 @@ class SetAlarmViewController: UIViewController {
         
         //notifcation that pin has been deleted, updates pickerview
         NotificationCenter.default.addObserver(self, selector: #selector(updatePickerView), name: NSNotification.Name.init("deletePin"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(calculateDistance), name: NSNotification.Name.init("updateDistance"), object: nil)
+        
 
     }
     
@@ -49,7 +57,14 @@ class SetAlarmViewController: UIViewController {
     
     @IBAction func setAlarm_Action(_ sender: Any) {
         //let row = pinnedLocationsPickerView.selectedRow(inComponent: 0)
+        alarmSet = true
+        remindMeBefore = Int(slider.value)
     
+    }
+    
+    @IBAction func cancelAction(_ sender: Any) {
+        
+        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
     }
     
     //called by NSNotification
@@ -73,11 +88,8 @@ class SetAlarmViewController: UIViewController {
             
             pickedLocationLabel.text = annotations[pickedLocation!].shortname
             
-            let coordinate0 = CLLocation(latitude: annotations[pickedLocation!].coords.latitude, longitude: annotations[pickedLocation!].coords.longitude)
-                    let coordinate1 = CLLocation(latitude: currentUserLocation.coordinate.latitude, longitude: currentUserLocation.coordinate.longitude)
-                    let distanceInMeters = coordinate0.distance(from: coordinate1)
-                        distanceLeft.text = String(Int(distanceInMeters)) + " Meters"
-            
+            //distance between user and picked location
+            var distanceInMeters = calculateDistance()
             if distanceInMeters > 500 {
             slider.maximumValue = Float(500)
             } else {
@@ -85,7 +97,7 @@ class SetAlarmViewController: UIViewController {
             }
             slider.minimumValue = 1
             slider.setValue(Float(distanceInMeters - 5)/2, animated: true)
-            pickedDistance.text = String(slider.value) + " Meters"
+            pickedDistance.text = String(slider.value) + " Meterss"
         }
     }
     
@@ -105,6 +117,47 @@ class SetAlarmViewController: UIViewController {
 
     @IBAction func sliderAction(_ sender: UISlider) {
         pickedDistance.text = String(sender.value) + " Meters"
+        
+//        if alarmSet != true {
+//            setAlarm.setTitle("SDSD", for: .normal)
+//        }
     }
+
+    
+    //distance between user and picked location, returns distance, constantly being called as user location ubdates
+    func calculateDistance() -> Int{
+        //distance between user and picked location
+        let coordinate0 = CLLocation(latitude: annotations[pickedLocation!].coords.latitude, longitude: annotations[pickedLocation!].coords.longitude)
+        let coordinate1 = CLLocation(latitude: currentUserLocation.coordinate.latitude, longitude: currentUserLocation.coordinate.longitude)
+        let distanceInMeters = coordinate0.distance(from: coordinate1)
+        distanceLeft.text = String(Int(distanceInMeters)) + " Meters"
+        
+        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+       
+   
+            if Int(distanceInMeters) < remindMeBefore && alarmSet{
+             alertUser()
+            }
+        
+        
+        return Int(distanceInMeters)
+    }
+    
+    
+    //alerts user once they are in there specified range 
+    func alertUser() {
+        //reset all daulft settings once location is reached
+        cancelledOrAlarmSet()
+        
+        //alert user to wake up
+        
+    }
+    
+    //set states back to default
+    func cancelledOrAlarmSet() {
+        
+    }
+
+    
     
 }

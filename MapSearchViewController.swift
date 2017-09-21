@@ -57,6 +57,8 @@ class MapSearchViewController: UIViewController, UISearchBarDelegate, CLLocation
         self.mapView.addGestureRecognizer(longPressGesture)
 
         
+         manager.allowsBackgroundLocationUpdates = true
+        
         //user location
         if CLLocationManager.locationServicesEnabled() {
         manager.requestWhenInUseAuthorization()
@@ -78,6 +80,11 @@ class MapSearchViewController: UIViewController, UISearchBarDelegate, CLLocation
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         //extract user location when this function is called
          currentUserLocation = locations[0] //locations will store all location, 0 will store the most recent
+        if alarmSet {
+         NotificationCenter.default.post(name: NSNotification.Name.init("updateDistance"), object: nil)
+            
+        }
+
         
         if spanToUserLocationOnce == false {
             spanToUserLocationOnce = true
